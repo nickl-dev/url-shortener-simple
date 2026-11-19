@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const API_URL = import.meta.env.API_URL;
+
 interface UrlState {
   shortUrl: string | null;
   posting: boolean;
@@ -17,7 +19,7 @@ export const shorten = createAsyncThunk<
   string,
   { rejectValue: string }
 >("url/shorten", async (url, thunkApi) => {
-  const res = await fetch("/shorten", {
+  const res = await fetch(`${API_URL}/shorten`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ url })
