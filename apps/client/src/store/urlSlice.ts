@@ -2,14 +2,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface UrlState {
   shortUrl: string | null;
-  loading: boolean;
-  error: string | null;
+  posting: boolean;
+  postError: string | null;
 }
 
 const initialState: UrlState = {
   shortUrl: null,
-  loading: false,
-  error: null
+  posting: false,
+  postError: null
 };
 
 export const shorten = createAsyncThunk<
@@ -24,7 +24,7 @@ export const shorten = createAsyncThunk<
   });
 
   const data = await res.json();
-  if (!res.ok) thunkApi.rejectWithValue(data.error);
+  if (!res.ok) return thunkApi.rejectWithValue(data.error);
   return data.shortUrl;
 });
 
@@ -35,16 +35,16 @@ const urlSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(shorten.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.posting = true;
+        state.postError = null;
       })
       .addCase(shorten.fulfilled, (state, action) => {
-        state.loading = false;
+        state.posting = false;
         state.shortUrl = action.payload;
       })
       .addCase(shorten.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload ?? "Something went wrong.";
+        state.posting = false;
+        state.postError = action.payload ?? "Something went wrong.";
       });
   }
 });

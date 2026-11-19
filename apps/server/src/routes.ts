@@ -26,7 +26,6 @@ router.post("/shorten", async (req, res) => {
   }
 
   res.json({ shortUrl: `${req.protocol}://${req.get("host")}/${id}` });
-  console.log({ urls });
 });
 
 router.get("/:id", async (req, res) => {
