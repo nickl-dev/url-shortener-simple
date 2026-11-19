@@ -87,6 +87,7 @@ function App() {
               {shortUrl}
             </a>
             <button
+              data-testid="copy-button"
               onClick={copy}
               className="cursor-pointer shrink-0 rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-200"
             >
