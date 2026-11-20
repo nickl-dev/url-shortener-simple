@@ -5,13 +5,11 @@ import routes from "./routes";
 const app = express();
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // e.g., 'https://vercel.app' (no trailing slash)
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: process.env.FRONTEND_URL || "*",
+    methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
-
-app.options("*", cors());
 app.use(express.json());
 app.use("/", routes);
 
